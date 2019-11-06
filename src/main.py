@@ -21,8 +21,6 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
         port = 6667
         print('Connecting to ' + server + ' on port ' + str(port) + '...')
         irc.bot.SingleServerIRCBot.__init__(self, [(server, port, 'oauth:'+token)], username, username)
-        
-
     def on_welcome(self, c, e):
         print('Joining ' + self.channel)
 
@@ -52,7 +50,7 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
             c.privmsg(self.channel, "Did not understand command: " + cmd)
 
 def main():
-    bot = TwitchBot(config.user, 'e3xjcx3gcxagl6diua8b1vsuucgak3', 'oauth:lvnbsr5xfif4oeb519twz1sk7duafo', config.user)
+    bot = TwitchBot(config.user, config.clientid, config.oath, config.user)
     bot.start()
 
 if __name__ == "__main__":
