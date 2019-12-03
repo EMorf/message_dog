@@ -4,6 +4,7 @@ import requests
 import config
 import logging
 import re
+import time
 
 
 class TwitchBot(irc.bot.SingleServerIRCBot):
@@ -55,6 +56,7 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 				elements = e.arguments[0].split(' ')
 				logging.warning("User {} with role {}{} did a {} for {} points.".format(e.source.split("!")[0],e.tags[7]['key'], e.tags[7]['value'], elements[0][1:], elements[1])) 
 				if int(elements[1]) > 0:
+					time.sleep(0.5)
 					c.privmsg(self.channel, "!join")
 					logging.info("Raffle was entered")
 				else:
