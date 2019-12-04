@@ -41,11 +41,11 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 		if e.source.split("!")[0].lower() in config.botlist:
 			text = e.arguments[0].replace(",",'')
 			if config.user in text.lower().split(" "):
+				logging.warning("{} mentioned: {}".format(e.source.split("!")[0].lower(), text))
 				m = re.search(r'won \d+ points?', text)
 				if m:
 					logging.info("{} {}.".format(config.user, m.group(0)))
-				else:
-					logging.warning("{} mentioned: {}".format(config.user, text))
+					
 		return
 		
 	def do_command(self, e, cmd):
