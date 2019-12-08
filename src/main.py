@@ -6,6 +6,8 @@ import logging
 import re
 import time
 import trivia_farmer
+import random
+import time
 
 
 class TwitchBot(irc.bot.SingleServerIRCBot):
@@ -54,6 +56,7 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 				self.category, self.question = m
 				response = self.trivia.retrieve(self.question)
 				if response != "":
+					time.sleep(random.randint(2, 5))
 					c.privmsg(self.channel, response)
 			else:
 				try:

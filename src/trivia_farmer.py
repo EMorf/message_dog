@@ -1,5 +1,5 @@
 import pickle
-
+import pprint
 
 class TriviaAnswer(): 
 	
@@ -27,9 +27,15 @@ class TriviaAnswer():
 		
 	def retrieve(self, question):
 		return self.answers.get(question, "")
+	
+	def data(self):
+		return self.answers
 		
 if __name__ == "__main__": 
+	ta = TriviaAnswer('stream')
+	pprint.pprint(ta.data(), compact=True)
     #Run some tests, be sure to remove everything in the obj folder first
+	'''
 	name = "qa-pairs"
 	x = TriviaAnswer(name)
 	x.set_data("2 + 2 = ?", "4")
@@ -41,4 +47,4 @@ if __name__ == "__main__":
 	for i, j in enumerate(t_q):
 		assert(x.set_data(j, t_a[i]))
 	assert(x.retrieve('This') == 'This') 
-	
+	'''
