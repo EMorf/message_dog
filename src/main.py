@@ -57,7 +57,7 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 				response = self.trivia.get_answer(self.question.strip('"'))
 				if response != ' ':
 					to_send = ["monkaHmm", "bShrug",  response, response, response]
-					time.sleep(random.randint(2, 5))
+					time.sleep(random.uniform(2.5, 6))
 					c.privmsg(self.channel, random.choice(to_send))
 			else:
 				try:
