@@ -1,20 +1,20 @@
-import pickle
 import pprint
+import json
 
 class TriviaAnswer(): 
 	
 	def __init__(self, name):
 		self.name = name
 		try:
-			with open('obj/' + name + '.pkl', 'rb') as f:
-				self.answers = pickle.load(f)
+			with open('obj/' + name + '.json') as f:
+				self.answers = json.load(f)
 		except Exception as e:
 			self.answers = {}
 			print(e)
 			
 	def save_data(self):
-		with open('obj/'+ self.name + '.pkl', 'wb') as f:
-			pickle.dump(self.answers, f, pickle.HIGHEST_PROTOCOL)
+		with open('obj/'+ self.name + '.json', 'w') as f:
+			json.dump(self.answers, f)
 			
 	def set_data(self, question, answer):
 		try:
@@ -25,15 +25,17 @@ class TriviaAnswer():
 		except:
 			return False
 		
-	def retrieve(self, question):
-		return self.answers.get(question, "")
+	def get_answer(self, question):
+		a= (self.answers).get(question, " ")
+		return a
+		
 	
 	def data(self):
 		return self.answers
 		
 if __name__ == "__main__": 
 	ta = TriviaAnswer('stream')
-	pprint.pprint(ta.data(), compact=True)
+	#pprint.pprint(ta.data(), compact=True)
     #Run some tests, be sure to remove everything in the obj folder first
 	'''
 	name = "qa-pairs"

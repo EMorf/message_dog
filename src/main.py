@@ -5,7 +5,7 @@ import config
 import logging
 import re
 import time
-import trivia_farmer
+from trivia_farmer import TriviaAnswer
 import random
 import time
 
@@ -54,10 +54,11 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 				if(len(m) != 2):
 					return
 				self.category, self.question = m
-				response = self.trivia.retrieve(self.question)
-				if response != "":
+				response = self.trivia.get_answer(self.question.strip('"'))
+				if response != ' ':
+					to_send = ["monkaHmm", "bShrug",  response, response, response]
 					time.sleep(random.randint(2, 5))
-					c.privmsg(self.channel, response)
+					c.privmsg(self.channel, random.choice(to_send))
 			else:
 				try:
 					text = text.replace('"', "")
@@ -107,7 +108,7 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 				return False
 
 def main():
-	trivia = trivia_farmer.TriviaAnswer("stream")
+	trivia = TriviaAnswer("stream")
 	bot = TwitchBot(config.user, config.clientid, config.oath, "admiralbulldog", trivia)
 	logging.basicConfig(filename='bot.logs',level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 	bot.start()
