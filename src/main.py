@@ -5,14 +5,16 @@ import config
 import logging
 import re
 import time
+import trivia_farmer
 
 
 class TwitchBot(irc.bot.SingleServerIRCBot):
-	def __init__(self, username, client_id, token, channel):
+	def __init__(self, username, client_id, token, channel, trivia):
 		self.client_id = client_id
 		self.token = token
 		self.channel = '#' + channel
-
+		self.question = ""
+		self.trivia = trivia
 		# Get the channel id, we will need this for v5 API calls
 		url = 'https://api.twitch.tv/kraken/users?login=' + channel
 		headers = {'Client-ID': client_id, 'Accept': 'application/vnd.twitchtv.v5+json'}
@@ -32,6 +34,41 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 		c.cap('REQ', ':twitch.tv/tags')
 		c.cap('REQ', ':twitch.tv/commands')
 		c.join(self.channel)
+		
+	#/me forces ctcp
+	#TODO fix bug that forces sikzone to be handled by the first if statement for trivia
+	def on_ctcp(self, c, e):
+		#Handle raffle results 
+		if e.source.split("!")[0].lower() in config.botlist:
+			text = e.arguments[1]
+			if config.user in text.lower().replace(",","").split(" "):
+				logging.warning("{} mentioned: {}".format(e.source.split("!")[0].lower(), text))
+				m = re.search(r'won \d+ points?', text)
+				if m:
+					logging.info("{} {}.".format(config.user, m.group(0)))
+			elif text[:23] == "PogChamp A new question":
+				m = re.findall(r'\".+?\"', text, flags = re.U)
+				# Malformed text
+				if(len(m) != 2):
+					return
+				self.category, self.question = m
+				response = self.trivia.retrieve(self.question)
+				if response != "":
+					c.privmsg(self.channel, response)
+			else:
+				try:
+					text = text.replace('"', "")
+					m = re.search(r'The answer was .+? (FeelsGoodMan|MingLee)', text)
+					if not m:
+						return
+					ans = m.group(0)
+					for item in ["The answer was", "FeelsGoodMan", "MingLee"]:
+						ans = ans.replace(item, "")
+					ans = ans.strip()
+					self.trivia.set_data(self.question.strip('"'), ans)
+				except Exception as e:
+					logging.warning(e)
+		return
 
 	def on_pubmsg(self, c, e):
 		# If a chat message starts with an exclamation point, try to run it as a command
@@ -67,7 +104,8 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 				return False
 
 def main():
-	bot = TwitchBot(config.user, config.clientid, config.oath, "admiralbulldog")
+	trivia = trivia_farmer.TriviaAnswer("stream")
+	bot = TwitchBot(config.user, config.clientid, config.oath, "admiralbulldog", trivia)
 	logging.basicConfig(filename='bot.logs',level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 	bot.start()
 
