@@ -17,6 +17,7 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 		self.channel = '#' + channel
 		self.question = ""
 		self.trivia = trivia
+		self.sleep = 
 		# Get the channel id, we will need this for v5 API calls
 		url = 'https://api.twitch.tv/kraken/users?login=' + channel
 		headers = {'Client-ID': client_id, 'Accept': 'application/vnd.twitchtv.v5+json'}
@@ -56,8 +57,8 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 				self.category, self.question = m
 				response = self.trivia.get_answer(self.question.strip('"'))
 				if response != ' ':
-					to_send = ["monkaHmm", "bShrug",  response, response, response]
-					time.sleep(random.uniform(2.5, 6))
+					to_send = ["monkaHmm", "bShrug",  response.lower(), response.lower(), response, response.upper(), "sadKEK IDK sadKEK", "WeirdChamp"]
+					time.sleep(random.uniform(4, 5.5))
 					c.privmsg(self.channel, random.choice(to_send))
 			else:
 				try:
