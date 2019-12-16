@@ -17,7 +17,6 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 		self.channel = '#' + channel
 		self.question = ""
 		self.trivia = trivia
-		self.sleep = 
 		# Get the channel id, we will need this for v5 API calls
 		url = 'https://api.twitch.tv/kraken/users?login=' + channel
 		headers = {'Client-ID': client_id, 'Accept': 'application/vnd.twitchtv.v5+json'}
@@ -57,9 +56,11 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 				self.category, self.question = m
 				response = self.trivia.get_answer(self.question.strip('"'))
 				if response != ' ':
-					to_send = ["monkaHmm", "bShrug",  response.lower(), response.lower(), response, response.upper(), "sadKEK IDK sadKEK", "WeirdChamp"]
+					to_send = ["monkaHmm", "bShrug",  response.lower(), response.lower(), response, response.upper(), "sadKEK IDK sadKEK", "WeirdChamp", response]
 					time.sleep(random.uniform(4, 5.5))
-					c.privmsg(self.channel, random.choice(to_send))
+					# Around 20% chance of guessing correctly, might have to increase later
+					if random.choice([True, False, False, False, False]):
+						c.privmsg(self.channel, random.choice(to_send))
 			else:
 				try:
 					text = text.replace('"', "")
