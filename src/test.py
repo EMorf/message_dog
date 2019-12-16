@@ -4,7 +4,6 @@ import config
 import logging
 import unittest
 
-
 	
 	
 class TestStringMethods(unittest.TestCase):
