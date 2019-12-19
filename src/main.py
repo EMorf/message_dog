@@ -58,9 +58,9 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 				self.category, self.question = m
 				response = self.trivia.get_answer(self.question.strip('"'))
 				if response != ' ' and self.ans_counter <= 3:
-					time.sleep(random.uniform(5, 7))
+					time.sleep(random.uniform(4.5, 7))
 					# Around 20% chance of guessing correctly, might have to increase later
-					c.privmsg(self.channel, random.choice(to_send))
+					c.privmsg(self.channel, response.lower())
 					self.ans_counter += 1
 			else:
 				try:
