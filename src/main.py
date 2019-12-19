@@ -7,7 +7,8 @@ import re
 import time
 from trivia_farmer import TriviaAnswer
 import random
-import time
+from timeloop import Timeloop
+from datetime import timedelta
 
 
 class TwitchBot(irc.bot.SingleServerIRCBot):
@@ -17,6 +18,7 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 		self.channel = '#' + channel
 		self.question = ""
 		self.trivia = trivia
+		self.ans_counter = 0
 		# Get the channel id, we will need this for v5 API calls
 		url = 'https://api.twitch.tv/kraken/users?login=' + channel
 		headers = {'Client-ID': client_id, 'Accept': 'application/vnd.twitchtv.v5+json'}
@@ -55,12 +57,11 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 					return
 				self.category, self.question = m
 				response = self.trivia.get_answer(self.question.strip('"'))
-				if response != ' ':
-					to_send = ["monkaHmm", "bShrug",  response.lower(), response.lower(), response, response.upper(), "sadKEK IDK sadKEK", "WeirdChamp", response]
-					time.sleep(random.uniform(4, 5.5))
+				if response != ' ' and self.ans_counter <= 3:
+					time.sleep(random.uniform(5, 7))
 					# Around 20% chance of guessing correctly, might have to increase later
-					if random.choice([True, False, False, False, False]):
-						c.privmsg(self.channel, random.choice(to_send))
+					c.privmsg(self.channel, random.choice(to_send))
+					self.ans_counter += 1
 			else:
 				try:
 					text = text.replace('"', "")
@@ -108,12 +109,21 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 			except (ValueError, IndexError) as er:
 				logging.warning("Raffle command: {} raised exception: {}".format(e.arguments[0], er))
 				return False
+				
+	def set_counter_0(self):
+		self.ans_counter = 0
+		return True
 
 def main():
+	t1 = Timeloop()
 	trivia = TriviaAnswer("stream")
 	bot = TwitchBot(config.user, config.clientid, config.oath, "admiralbulldog", trivia)
 	logging.basicConfig(filename='bot.logs',level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 	bot.start()
+	@tl.job(interval=timedelta(seconds=60*30))
+	def res_an():
+		bot.set_counter_0()
+	t1.start(block=True)
 
 if __name__ == "__main__":
 	main()
