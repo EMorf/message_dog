@@ -104,3 +104,4 @@ venv.bak/
 .mypy_cache/
 
 # sensitive files
+config.py
