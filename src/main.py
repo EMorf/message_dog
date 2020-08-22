@@ -108,7 +108,6 @@ class TwitchBot(irc.bot.SingleServerIRCBot):
 				
 
 def main():
-	t1 = Timeloop()
 	trivia = TriviaAnswer("stream")
 	bot = TwitchBot(config.user, config.clientid, config.oath, "admiralbulldog", trivia)
 	logging.basicConfig(filename='bot.logs',level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
