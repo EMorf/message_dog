@@ -1,5 +1,5 @@
 # Constant table
-user = 'sikzone' # Twitch user id
+user = 'SikZone' # Twitch user id
 pwd  = '' # not needed currently
 host ='localhost'
 db   = '' # not needed currently
