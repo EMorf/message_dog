@@ -25,12 +25,12 @@ messagedog
 
 | Variable          | Description        | Default Value | Best Case                                                                                                       |
 | ----------------- | ------------------ | ------------- | --------------------------------------------------------------------------------------------------------------- |
-| TWITCH_USER       | Twitch user id     |               | Name of the twitch user to log in as  id.                                                                       |
-| TWITCH_PW         | Not needed         |               | Not needed currently, for future use.                                                                           |
-| HOST              | HOST to connect to | localhost     | Not needed currently, for future use.                                                                           |
-| DATABASE          | Not needed         |               | Not needed currently. However, for future use, a valid database connection string or name for storing messages. |
-| TWITCH_AUTH_TOKEN | Twitch auth token  |               | A valid Twitch authentication token obtained from <https://twitchapps.com/tmi/>>.                               |
-| TWITCH_CLIENT_ID  | Twitch client id   |               | A valid Twitch client id obtained from <https://dev.twitch.tv/console/apps/create>>.                            |
+| TWITCH_USER       | Twitch user id     |               | ID of the twitch user to log in as.                                                                             |
+| TWITCH_PW         | Not needed         |               | Not used currently, for future use.                                                                             |
+| HOST              | HOST to connect to | localhost     | Not used currently, for future use.                                                                             |
+| DATABASE          | Not needed         |               | Not used currently. However, for future use, a valid database connection string or name for storing messages.   |
+| TWITCH_AUTH_TOKEN | Twitch auth token  |               | A valid Twitch authentication token obtained from <https://twitchapps.com/tmi/>.                                |
+| TWITCH_CLIENT_ID  | Twitch client id   |               | A valid Twitch client id obtained from <https://dev.twitch.tv/console/apps/create>.                             |
 
 ## WordCloud
 
