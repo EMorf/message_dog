@@ -15,6 +15,7 @@ It is suggested that points are transferred ocassionally, to avoid suspicion...
 ### Installation
 
 To install and run:
+
 ```bash
 pip install .
 messagedog
