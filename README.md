@@ -1,6 +1,6 @@
-# Raffle bot
+## Raffle bot
 
-## Installation
+### Installation
 
 To execute:
 
@@ -15,7 +15,7 @@ pip install .
 messagedog
 ```
 
-## Configuration
+### Configuration
 
 | Variable       | Description                                            | Default Value | Best Case                                                                                                             |
 |----------------|--------------------------------------|---------------|-----------------------------------------------------------------------------------------------------------------------|
@@ -26,6 +26,12 @@ messagedog
 | TWITCH_AUTH_TOKEN | Twitch auth token                                   |               | A valid Twitch authentication token obtained from <https://twitchapps.com/tmi/>>.                                         |
 | TWITCH_CLIENT_ID | Twitch client id                                     |               | A valid Twitch client id obtained from <https://dev.twitch.tv/console/apps/create>>.                                       |
 
-## Design
+### Design
 
 The application monitors the chat room of admiralbulldog and will automatically try to enter or leave raffles, and answer trivia questions. It is suggested that points are transferred ocassionally, to avoid suspicion...
+## WordCloud
+This script accepts the a username, and generates a wordcloud of the user's most common phrases and works over a certain month. It can be invoked with:
+
+```bash
+python3 scripts/generate_wordcloud.py
+```
