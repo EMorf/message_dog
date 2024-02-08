@@ -1,6 +1,5 @@
 import re
 from sys import argc, argv, exit
-from sklearn.feature_extraction.text import CountVectorizer
 from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
 import requests
@@ -30,7 +29,8 @@ def generate_wordcloud(user: str) -> None:
         try:
             if x.group(2).lower() == user.lower():
                 messages.append(x.group(3))
-        except:
+        except Exception as e:
+            print(e)
             malformed_counter += 1
 
     print(f"Found {malformed_counter} malformed line(s) that are henceforth ignored")

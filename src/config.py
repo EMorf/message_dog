@@ -3,9 +3,6 @@ from typing_extensions import Self
 class Config:
     def __init__(self : Self) -> None:
         """Constructor for the Config class, responsible for ingesting configuration variables from the environment
-
-        Returns:
-            Self
         """        
         self.user = os.environ.get("TWITCH_USER", "")           # Twitch user id
         self.pwd  = os.environ.get("TWITCH_PW", "")             # not needed

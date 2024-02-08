@@ -14,7 +14,8 @@ class TriviaAnswer:
         try:
             with open(file_path, "w", encoding="utf-8") as f:
                 self.answers = json.load(f)
-        except:
+        except Exception as e:
+            print(e)
             self.answers = {}
 
     def save_data(self: Self) -> None:
@@ -57,4 +58,3 @@ class TriviaAnswer:
                 map[str,str]: In-memory mapping of questions to answers
         """
         return self.answers
-

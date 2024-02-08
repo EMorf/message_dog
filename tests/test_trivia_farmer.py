@@ -1,13 +1,12 @@
 from src.trivia_farmer import TriviaAnswer
 
+
 def test_trivia_object():
-    """Simple test to verify behaviour of underlying data structure
-    """    
+    """Simple test to verify behaviour of underlying data structure"""
 
     ta = TriviaAnswer("qa-pairs")
     ta.set_data("2 + 2 = ?", "4")
     assert ta.get_answer("2 + 2 = ?") == "4"
-
 
     assert ta.get_answer("Hello?") == ""
 

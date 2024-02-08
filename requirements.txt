@@ -1,4 +1,0 @@
-irc==17.1
-requests==2.21.0
-wordcloud
-pytest

@@ -1,0 +1,52 @@
+[project]
+name = "MessageDog"  
+version = "3.0.0"  # Required
+description = "A Twitch bot to answer Trivia quizzes and win raffles created by admiralbullbot."  
+readme = "README.md" # Optional
+requires-python = ">=3.7"
+keywords = ["trivia", "twitch", "raffle"] 
+authors = [
+  {name = "Emmanuel Morfiadakis", email = "xtrememanos@windowslive.com" }
+]
+
+maintainers = [
+  {name = "Emmanuel Morfiadakis", email = "xtrememanos@windowslive.com" }
+]
+
+
+classifiers = [  
+  "Development Status :: 5 - Stable",
+
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3 :: Only",
+]
+
+
+dependencies = [ 
+  "irc==17.1",
+  "requests==2.21.0",
+  "wordcloud"
+]
+
+
+[project.optional-dependencies] 
+test = ["pytest"]
+
+
+[project.scripts]  # Optional
+messagedog = "app:main"
+
+
+[tool.setuptools]
+package-data = {"sample" = ["*.dat"]}
+
+[build-system]
+requires = ["setuptools>=43.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
