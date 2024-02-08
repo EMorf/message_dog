@@ -6,21 +6,15 @@
 
 ### Purpose
 
-The application monitors the chat room of [admiralbulldog](https://www.twitch.tv/admiralbulldog) and
+The application monitors the chat room of
+[admiralbulldog](https://www.twitch.tv/admiralbulldog) and
 will automatically try to enter or leave raffles,
 and answer trivia questions.
 It is suggested that points are transferred ocassionally, to avoid suspicion...
 
 ### Installation
 
-To execute:
-
-```bash
-python app.py
-```
-
-Alternatively:
-
+To install and run:
 ```bash
 pip install .
 messagedog
