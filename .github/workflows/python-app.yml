@@ -31,7 +31,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with black and ruff
       run: |
-        ruff .
+        ruff check
         black . 
     - name: Install package locally
       run: |
